@@ -1,0 +1,38 @@
+{
+  "mockpreview": {
+    "mockUri": "",
+    "metadataFilePath": "",
+    "loadJSONFiles": false,
+    "loadCustomRequests": false,
+    "mockRequestsFilePath": ""
+  },
+  "deploy": {
+    "destination": "rdu",
+    "name": "ZFIN_ANALYZEPOS"
+  },
+  "extensibility": {
+    "controllers": {
+      "Main": "FIN_ANALYZEPOSI%2fMain.controller.js",
+      "S1": "FIN_ANALYZEPOSI%2fview%2fS1.controller.js"
+    },
+    "views": {
+      "Main": "FIN_ANALYZEPOSI%2fMain.view.xml",
+      "S1": "FIN_ANALYZEPOSI%2fview%2fS1.view.xml"
+    },
+    "fragments": {
+      "AppSettingsDialog": "FIN_ANALYZEPOSI%2fview%2fAppSettingsDialog.fragment.xml",
+      "BAVContextMenu": "FIN_ANALYZEPOSI%2fview%2fBAVContextMenu.fragment.xml",
+      "BCVContextMenu": "FIN_ANALYZEPOSI%2fview%2fBCVContextMenu.fragment.xml",
+      "BankAccountView": "FIN_ANALYZEPOSI%2fview%2fBankAccountView.fragment.xml",
+      "GLAccountView": "FIN_ANALYZEPOSI%2fview%2fGLAccountView.fragment.xml",
+      "ProgressDialog": "FIN_ANALYZEPOSI%2fview%2fProgressDialog.fragment.xml"
+    },
+    "type": "abaprep",
+    "shouldLinkComponentToManifest": true,
+    "component": "FIN_ANALYZEPOSI%2fComponent.js",
+    "configuration": "FIN_ANALYZEPOSI%2fConfiguration.js",
+    "manifest": "FIN_ANALYZEPOSI%2fmanifest.json",
+    "versionJsonPath": "FIN_ANALYZEPOSI%2fversion.json",
+    "minUI5Version": "1.40.9"
+  }
+}

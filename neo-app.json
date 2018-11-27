@@ -1,0 +1,51 @@
+{
+  "welcomeFile": "index.html",
+  "routes": [
+    {
+      "path": "/sap/opu/odata",
+      "target": {
+        "type": "destination",
+        "name": "rdu",
+        "entryPath": "/sap/opu/odata"
+      },
+      "description": "rdu"
+    },
+    {
+      "path": "/sap/bc/ui5_ui5",
+      "target": {
+        "type": "destination",
+        "name": "rdu",
+        "entryPath": "/sap/bc/ui5_ui5"
+      },
+      "description": "rdu"
+    },
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/resources"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources"
+      },
+      "description": "SAPUI5 Test Resources"
+    },
+    {
+      "path": "/resources/fin/cash/cashposition/analyze",
+      "target": {
+        "type": "destination",
+        "name": "rdu",
+        "entryPath": "/sap/bc/ui5_ui5/sap/fin_analyzeposi",
+        "preferLocal": true
+      },
+      "description": "fin/cash/cashposition/analyze Reuse Library"
+    }
+  ]
+}

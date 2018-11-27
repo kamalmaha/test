@@ -1,0 +1,483 @@
+<!--
+
+    Copyright (C) 2009-2016 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<VBox id="containerGLAccount"  
+   xmlns:core="sap.ui.core" xmlns:viz="sap.viz.ui5"
+ xmlns:viztype="sap.viz.ui5.types" xmlns:table="sap.ui.table" xmlns="sap.m"
+ xmlns:l="sap.ui.layout" xmlns:sfb="sap.ui.comp.smartfilterbar"
+ xmlns:fb="sap.ui.comp.filterbar" xmlns:smartTable="sap.ui.comp.smarttable"
+ xmlns:unified="sap.ui.unified" xmlns:smartlink="sap.ui.comp.navpopover"
+ xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+ fitContainer="true"> 
+ <sfb:SmartFilterBar width="auto" id="smartFilterBarGL"
+  entityType="CashDisPositionDeltaView" search="onSearchButtonPressed"
+  reset="doReload"  persistencyKey="fin.cash.cashposition.analyze.view.S1.GLAccount"
+  initialise="onInitSmartFilterBar">
+  <sfb:controlConfiguration>
+   <sfb:ControlConfiguration key="ValueDate"
+    index="0" groupId="_BASIC" hasValueHelpDialog="false"
+    hasTypeAhead="false" mandatory="mandatory"/>
+   <sfb:ControlConfiguration key="CompanyCode"
+    index="1" groupId="_BASIC"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="idOnly"/>
+   <sfb:ControlConfiguration key="BankAccountCurrency"
+    index="2" groupId="_BASIC"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="idOnly"/>
+   <sfb:ControlConfiguration key="BankAccount"
+    index="3" groupId="_BASIC"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="idOnly"/>
+   <sfb:ControlConfiguration key="PlanningLevel"
+    index="4" groupId="_BASIC"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="idOnly"/>
+   <sfb:ControlConfiguration key="Bank"
+    index="5" groupId="_BASIC"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="descriptionOnly"/>
+   <sfb:ControlConfiguration key="BankCountry"
+    index="6" groupId="_BASIC"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="descriptionOnly"/>
+      <sfb:ControlConfiguration 
+    index="7" key="CertaintyLevel" groupId="_BASIC" 
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="idOnly" mandatory="mandatory"/>
+   <sfb:ControlConfiguration key="SummarizationGroup"
+    index="8" groupId="DynamicSelection"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="descriptionOnly"/>
+   <sfb:ControlConfiguration key="SummarizationTerm"
+    index="9" groupId="DynamicSelection"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="descriptionOnly"/>
+   <sfb:ControlConfiguration key="CashPlanningGroup"
+    index="10" groupId="DynamicSelection"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="descriptionOnly"/>
+   <sfb:ControlConfiguration key="LiquidityItem"
+    index="11" groupId="DynamicSelection"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="descriptionOnly"/>
+   <sfb:ControlConfiguration key="HouseBank"
+    index="12" groupId="DynamicSelection"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="descriptionOnly"/>
+            <sfb:ControlConfiguration key="HouseBankAccount"
+    index="13" groupId="DynamicSelection"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="descriptionOnly"/>
+   <sfb:ControlConfiguration key="BankAccountGroup"
+    index="14" groupId="DynamicSelection"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="descriptionOnly"/>
+   <sfb:ControlConfiguration key="BankGroup"
+    index="15" groupId="DynamicSelection"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="descriptionOnly"/>
+   <sfb:ControlConfiguration key="BankRating"
+    index="16" groupId="DynamicSelection"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="descriptionOnly"/>
+   <sfb:ControlConfiguration key="GLAccount"
+    index="17" groupId="DynamicSelection"
+    preventInitialDataFetchInValueHelpDialog="false" 
+    displayBehaviour="descriptionOnly"/>
+  </sfb:controlConfiguration>
+  <sfb:customData>
+   <core:CustomData key="defaultDropDownDisplayBehaviour"
+    value="descriptionOnly" />
+   <core:CustomData key="defaultTokenDisplayBehaviour"
+    value="idAndDescription" />
+   <core:CustomData key="dateFormatSettings"
+    value='\{"UTC":true,"style":"short"\}' />
+  </sfb:customData>
+
+  <sfb:groupConfiguration>
+   <sfb:GroupConfiguration key="DynamicSelection"
+    label="{i18n>DYN_SEL_TITLE}" />
+  </sfb:groupConfiguration>
+     
+  <sfb:layoutData>
+   <FlexItemData shrinkFactor="0" />
+  </sfb:layoutData>
+ </sfb:SmartFilterBar>
+
+ <smartTable:SmartTable id="GLAccountSmartTable" entitySet="CashDisPositionDeltaViewSet" smartFilterId="smartFilterBarGL" 
+ tableType="AnalyticalTable" useExportToExcel="true" useVariantManagement="true" useTablePersonalisation="true"
+ showRowCount="false" beforeRebindTable="onBeforeRebindTable" 
+ persistencyKey="SmartTableAnalytical_GL" width="auto" ignoredFields="GeneratedId,ExchangeRateType,ValueDate,BankAccountInternalID,BankAccountGroup,SummarizationGroup"
+ class="sapFioriListReportSmartTable">
+  <smartTable:customToolbar>
+   <OverflowToolbar> 
+    <ToolbarSpacer />
+    <Button text="Create Memo Record" press="onclickGLV"></Button>
+    <Button id="btnExpandForGLView"  icon="sap-icon://expand-group"
+        tooltip="{i18n>Expand}" press="onExpandForGLView" type="Transparent"></Button>
+    <Button id="btnCollapseForGLView"  icon="sap-icon://collapse-group"
+        tooltip="{i18n>Collapse}" press="onCollapseForGLView" type="Transparent"></Button>
+   </OverflowToolbar>
+     </smartTable:customToolbar>
+  <smartTable:customData>
+   <core:CustomData key="dateFormatSettings"
+    value='\{"UTC":true,"style":"short"\}' />
+  </smartTable:customData>
+  <smartTable:layoutData>
+   <FlexItemData growFactor="1" baseSize="0%"/>
+  </smartTable:layoutData>
+  <smartTable:semanticObjectController>
+   <smartlink:SemanticObjectController
+    beforePopoverOpens="onBeforePopoverOpens"
+    navigationTargetsObtained="onNavTargetsObtained" navigate="onPopoverLinkPressed" />
+  </smartTable:semanticObjectController>
+  <table:AnalyticalTable id="GLAccountTable"
+   allowColumnReordering="true" showColumnVisibilityMenu="false"
+   enableColumnFreeze="false" enableCellFilter="true" enableGrouping="true" 
+   visibleRowCountMode="Auto" rowSelectionChange="onRowSelectionChange" 
+   collapseRecursive = "true">
+
+   <table:columns id="tableColumnsGL">
+    <table:AnalyticalColumn showIfGrouped="false" grouped="true"
+     autoResizable="true" 
+     customData:p13nData='\{"columnKey": "BankAccountCurrency"}'
+     leadingProperty="BankAccountCurrency" filterProperty="BankAccountCurrency" 
+     sortProperty="BankAccountCurrency" width="50px" visible="true">
+     <Label text="{/#CashDisPositionTableView/BankAccountCurrency/@sap:label}" tooltip="{/#CashDisPositionTableView/BankAccountCurrency/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{BankAccountCurrency}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn showIfGrouped="false" grouped="true"
+     autoResizable="true"  customData:p13nData='\{"columnKey": "CompanyCode"}'
+     leadingProperty="CompanyCode" filterProperty="CompanyCode"
+     sortProperty="CompanyCode" width="80px" visible="true">
+     <Label text="{/#CashDisPositionTableView/CompanyCode/@sap:label}" tooltip="{/#CashDisPositionTableView/CompanyCode/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{parts:[{path:'CompanyCode'}]}"
+       wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn showIfGrouped="true" grouped="true"
+     autoResizable="true"  customData:p13nData='\{"columnKey": "BankAccount"}'
+     leadingProperty="BankAccount" filterProperty="BankAccount"
+     sortProperty="BankAccount" width="100px" visible="true">
+     <Label text="{/#CashDisPositionTableView/BankAccount/@sap:label}" tooltip="{/#CashDisPositionTableView/BankAccount/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Link  text="{parts:[{path:'BankAccount'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.formatValueWithNotAssign'}" enabled="true"
+       press="onBankAccountLinkPressed" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn   
+     autoResizable="true"  customData:p13nData='\{"columnKey": "KeyFigure"}' 
+     leadingProperty="KeyFigure" width="40px" hAlign="Center"
+     visible="true">
+     <Label text="{/#CashDisPositionTableView/KeyFigure/@sap:label}" tooltip="{/#CashDisPositionTableView/KeyFigure/@sap:label}" width="100%"></Label>
+     <table:template>
+      <core:Icon  color="rgb(0, 124, 192)" size="16px" 
+       src="{parts:[{path:'KeyFigure'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.convertKeyFigure'}"
+       tooltip="{parts:[{path:'KeyFigure'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.convertKeyFigureTooltip'}"
+       >
+     </core:Icon>
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn  
+     autoResizable="true"  customData:p13nData='\{"columnKey": "PlanningLevel"}' 
+     leadingProperty="PlanningLevel" filterProperty="PlanningLevel"
+     sortProperty="PlanningLevel" width="40px" visible="true">
+     <Label text="{/#CashDisPositionTableView/PlanningLevel/@sap:label}" tooltip="{/#CashDisPositionTableView/PlanningLevel/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{PlanningLevel}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+
+    <table:AnalyticalColumn 
+     summed="true" autoResizable="true" hAlign="Right"
+     customData:p13nData='\{"columnKey": "PaymentBefore"}'
+     leadingProperty="PaymentBefore" 
+      width="80px" visible="true">
+     <Label text="{/#CashDisPositionTableView/PaymentBefore/@sap:label}" textAlign="Right" tooltip="{/#CashDisPositionTableView/PaymentBefore/@sap:label}" width="100%"></Label>
+     <table:template>
+      <smartlink:SmartLink id="idBeforeGL"
+       semanticObject="BankAccount"
+       text="{parts:[{path:'PaymentBefore'}, {path:'BankAccountCurrency'}, {path: 'Scaling>/scaling'}, {path: 'Scaling>/decimals'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.formatAmountWithCurrency'}"
+       semanticObjectLabel="{i18n>NAVIGATION}" beforePopoverOpens="onBeforePopOver"
+       navigationTargetsObtained="onTargetObtained" innerNavigate="onPopoverLinkPressed" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     grouped="false" summed="true" autoResizable="true"
+     customData:p13nData='\{"columnKey": "PaymentDay1"}'
+     leadingProperty="PaymentDay1" hAlign="Right" 
+        width="80px" visible="true">
+     <Label id="PaymentDay1ColLabelGL" text="{/#CashDisPositionTableView/PaymentDay1/@sap:label}" textAlign="Right" 
+      tooltip="{/#CashDisPositionTableView/PaymentDay1/@sap:label}" width="100%"></Label>
+     <table:template>
+      <smartlink:SmartLink id="idDay1GL"
+       semanticObject="BankAccount"
+       text="{parts:[{path:'PaymentDay1'}, {path:'BankAccountCurrency'}, {path: 'Scaling>/scaling'}, {path: 'Scaling>/decimals'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.formatAmountWithCurrency'}"
+       semanticObjectLabel="{i18n>NAVIGATION}" beforePopoverOpens="onBeforePopOver"
+       navigationTargetsObtained="onTargetObtained" innerNavigate="onPopoverLinkPressed" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     grouped="false" summed="true" autoResizable="true"
+     customData:p13nData='\{"columnKey": "PaymentDay2"}'
+     leadingProperty="PaymentDay2" hAlign="Right" 
+      width="80px" visible="true">
+     <Label id="PaymentDay2ColLabelGL" text="{/#CashDisPositionTableView/PaymentDay2/@sap:label}" textAlign="Right" 
+      tooltip="{/#CashDisPositionTableView/PaymentDay2/@sap:label}" width="100%"></Label>
+     <table:template>
+      <smartlink:SmartLink id="idDay2GL"
+       semanticObject="BankAccount"
+       text="{parts:[{path:'PaymentDay2'}, {path:'BankAccountCurrency'}, {path: 'Scaling>/scaling'}, {path: 'Scaling>/decimals'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.formatAmountWithCurrency'}"
+       semanticObjectLabel="{i18n>NAVIGATION}" beforePopoverOpens="onBeforePopOver"
+       navigationTargetsObtained="onTargetObtained" innerNavigate="onPopoverLinkPressed" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn
+     grouped="false" summed="true" autoResizable="true"
+     customData:p13nData='\{"columnKey": "PaymentDay3"}'
+     leadingProperty="PaymentDay3" hAlign="Right" 
+      width="80px" visible="true">
+     <Label id="PaymentDay3ColLabelGL" text="{/#CashDisPositionTableView/PaymentDay3/@sap:label}" textAlign="Right" 
+      tooltip="{/#CashDisPositionTableView/PaymentDay3/@sap:label}" width="100%"></Label>
+     <table:template>
+      <smartlink:SmartLink id="idDay3GL"
+       semanticObject="BankAccount"
+       text="{parts:[{path:'PaymentDay3'}, {path:'BankAccountCurrency'}, {path: 'Scaling>/scaling'}, {path: 'Scaling>/decimals'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.formatAmountWithCurrency'}"
+       semanticObjectLabel="{i18n>NAVIGATION}" beforePopoverOpens="onBeforePopOver"
+       navigationTargetsObtained="onTargetObtained" innerNavigate="onPopoverLinkPressed" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     summed="true" autoResizable="true" customData:p13nData='\{"columnKey": "PaymentDay4"}'
+     leadingProperty="PaymentDay4" hAlign="Right" 
+      width="80px" visible="true">
+     <Label id="PaymentDay4ColLabelGL" text="{/#CashDisPositionTableView/PaymentDay4/@sap:label}" textAlign="Right" 
+      tooltip="{/#CashDisPositionTableView/PaymentDay4/@sap:label}" width="100%"></Label>
+     <table:template>
+      <smartlink:SmartLink id="idDay4GL"
+       semanticObject="BankAccount"
+       text="{parts:[{path:'PaymentDay4'}, {path:'BankAccountCurrency'}, {path: 'Scaling>/scaling'}, {path: 'Scaling>/decimals'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.formatAmountWithCurrency'}"
+       semanticObjectLabel="{i18n>NAVIGATION}" beforePopoverOpens="onBeforePopOver"
+       navigationTargetsObtained="onTargetObtained" innerNavigate="onPopoverLinkPressed" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     grouped="false" summed="true" autoResizable="true"
+     customData:p13nData='\{"columnKey": "PaymentDay5"}'
+     leadingProperty="PaymentDay5" hAlign="Right" 
+      width="80px" visible="true">
+     <Label id="PaymentDay5ColLabelGL" text="{/#CashDisPositionTableView/PaymentDay5/@sap:label}" textAlign="Right" 
+      tooltip="{/#CashDisPositionTableView/PaymentDay5/@sap:label}" width="100%"></Label>
+     <table:template>
+      <smartlink:SmartLink id="idDay5GL"
+       semanticObject="BankAccount"
+       text="{parts:[{path:'PaymentDay5'}, {path:'BankAccountCurrency'}, {path: 'Scaling>/scaling'}, {path: 'Scaling>/decimals'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.formatAmountWithCurrency'}"
+       semanticObjectLabel="{i18n>NAVIGATION}" beforePopoverOpens="onBeforePopOver"
+       navigationTargetsObtained="onTargetObtained" innerNavigate="onPopoverLinkPressed" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     grouped="false" summed="true" autoResizable="true"
+     customData:p13nData='\{"columnKey": "PaymentDay6"}'
+     leadingProperty="PaymentDay6" hAlign="Right" 
+      width="80px" visible="true">
+     <Label id="PaymentDay6ColLabelGL" text="{/#CashDisPositionTableView/PaymentDay6/@sap:label}" textAlign="Right" 
+      tooltip="{/#CashDisPositionTableView/PaymentDay6/@sap:label}" width="100%"></Label>
+     <table:template>
+      <smartlink:SmartLink id="idDay6GL"
+       semanticObject="BankAccount"
+       text="{parts:[{path:'PaymentDay6'}, {path:'BankAccountCurrency'}, {path: 'Scaling>/scaling'}, {path: 'Scaling>/decimals'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.formatAmountWithCurrency'}"
+       semanticObjectLabel="{i18n>NAVIGATION}" beforePopoverOpens="onBeforePopOver"
+       navigationTargetsObtained="onTargetObtained" innerNavigate="onPopoverLinkPressed" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     grouped="false" summed="true" autoResizable="true"
+     customData:p13nData='\{"columnKey": "PaymentDay7"}'
+     leadingProperty="PaymentDay7" hAlign="Right" 
+      width="80px" visible="true">
+     <Label id="PaymentDay7ColLabelGL" text="{/#CashDisPositionTableView/PaymentDay7/@sap:label}" textAlign="Right" 
+      tooltip="{/#CashDisPositionTableView/PaymentDay7/@sap:label}" width="100%"></Label>
+     <table:template>
+      <smartlink:SmartLink id="idDay7GL"
+       semanticObject="BankAccount"
+       text="{parts:[{path:'PaymentDay7'}, {path:'BankAccountCurrency'}, {path: 'Scaling>/scaling'}, {path: 'Scaling>/decimals'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.formatAmountWithCurrency'}"
+       semanticObjectLabel="{i18n>NAVIGATION}" beforePopoverOpens="onBeforePopOver"
+       navigationTargetsObtained="onTargetObtained" innerNavigate="onPopoverLinkPressed" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+
+    <table:AnalyticalColumn 
+     grouped="false" summed="true" autoResizable="true"
+     customData:p13nData='\{"columnKey": "PaymentAfter"}'
+     leadingProperty="PaymentAfter" hAlign="Right" 
+      width="80px" visible="true">
+     <Label text="{/#CashDisPositionTableView/PaymentAfter/@sap:label}" textAlign="Right" tooltip="{/#CashDisPositionTableView/PaymentAfter/@sap:label}" width="100%"></Label>
+     <table:template>
+      <smartlink:SmartLink id="idAfterGL"
+       semanticObject="BankAccount"
+       text="{parts:[{path:'PaymentAfter'}, {path:'BankAccountCurrency'}, {path: 'Scaling>/scaling'}, {path: 'Scaling>/decimals'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.formatAmountWithCurrency'}"
+       semanticObjectLabel="{i18n>NAVIGATION}" beforePopoverOpens="onBeforePopOver"
+       navigationTargetsObtained="onTargetObtained" innerNavigate="onPopoverLinkPressed" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     customData:p13nData='\{"columnKey": "Bank"}' leadingProperty="Bank"
+     width="40px" visible="false">
+     <Label text="{/#CashDisPositionTableView/Bank/@sap:label}" tooltip="{/#CashDisPositionTableView/Bank/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{Bank}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+      <table:AnalyticalColumn
+     customData:p13nData='\{"columnKey": "BankName"}' leadingProperty="BankName"
+     width="80px" visible="false">
+     <Label text="{/#CashDisPositionTableView/BankName/@sap:label}" tooltip="{/#CashDisPositionTableView/BankName/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{BankName}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+     <table:AnalyticalColumn 
+     customData:p13nData='\{"columnKey": "BankCountry"}' leadingProperty="BankCountry"
+     width="20px" visible="false">
+     <Label text="{/#CashDisPositionTableView/BankCountry/@sap:label}" tooltip="{/#CashDisPositionTableView/BankCountry/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{BankCountry}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn  
+     autoResizable="true"  customData:p13nData='\{"columnKey": "CompanyCodeName"}' leadingProperty="CompanyCodeName"
+         width="50px" visible="true">
+     <Label text="{/#CashDisPositionTableView/CompanyCodeName/@sap:label}" tooltip="{/#CashDisPositionTableView/CompanyCodeName/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{parts:[{path:'CompanyCodeName'}]}"
+       wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     customData:p13nData='\{"columnKey": "LiquidityItem"}' leadingProperty="LiquidityItem"
+     width="40px" visible="false">
+     <Label text="{/#CashDisPositionTableView/LiquidityItem/@sap:label}" tooltip="{/#CashDisPositionTableView/LiquidityItem/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{LiquidityItem}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     customData:p13nData='\{"columnKey": "LiquidityItemName"}' leadingProperty="LiquidityItemName"
+     width="80px" visible="false">
+     <Label text="{/#CashDisPositionTableView/LiquidityItemName/@sap:label}" tooltip="{/#CashDisPositionTableView/LiquidityItemName/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{LiquidityItemName}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn
+     customData:p13nData='\{"columnKey": "HouseBank"}' leadingProperty="HouseBank" sortProperty="HouseBank" 
+     width="40px" visible="false">
+     <Label text="{/#CashDisPositionTableView/HouseBank/@sap:label}" tooltip="{/#CashDisPositionTableView/HouseBank/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{parts:[{path:'HouseBank'}],formatter:'fin.cash.cashposition.analyze.util.Conversions.formatValueWithNotAssign'}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     customData:p13nData='\{"columnKey": "HouseBankAccount"}' leadingProperty="HouseBankAccount" sortProperty="HouseBankAccount" 
+     width="40px" visible="false">
+     <Label text="{/#CashDisPositionTableView/HouseBankAccount/@sap:label}" tooltip="{/#CashDisPositionTableView/HouseBankAccount/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{HouseBankAccount}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     customData:p13nData='\{"columnKey": "CompanyCodeCountry"}' leadingProperty="CompanyCodeCountry"
+     width="20px" visible="false">
+     <Label text="{/#CashDisPositionTableView/CompanyCodeCountry/@sap:label}" tooltip="{/#CashDisPositionTableView/CompanyCodeCountry/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{CompanyCodeCountry}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn
+     customData:p13nData='\{"columnKey": "CertaintyLevel"}' leadingProperty="CertaintyLevel"
+     width="30px" visible="false">
+     <Label text="{/#CashDisPositionTableView/CertaintyLevel/@sap:label}" tooltip="{/#CashDisPositionTableView/CertaintyLevel/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{CertaintyLevel}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     customData:p13nData='\{"columnKey": "FinancialAccountType"}' leadingProperty="FinancialAccountType"
+     width="20px" visible="false">
+     <Label text="{/#CashDisPositionTableView/FinancialAccountType/@sap:label}" tooltip="{/#CashDisPositionTableView/FinancialAccountType/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{FinancialAccountType}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     customData:p13nData='\{"columnKey": "GLAccount"}' leadingProperty="GLAccount"  sortProperty="GLAccount" 
+     width="20px" visible="false">
+     <Label text="{/#CashDisPositionTableView/GLAccount/@sap:label}" tooltip="{/#CashDisPositionTableView/GLAccount/@sap:label}" width="100%"></Label>
+     <table:template> 
+      <Text text="{GLAccount}" wrapping="false" />
+     </table:template>
+
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     customData:p13nData='\{"columnKey": "BankAccountGroup"}' leadingProperty="BankAccountGroup"  sortProperty="BankAccountGroup" 
+     width="20px" visible="false">
+     <Label text="{/#CashDisPositionTableView/BankAccountGroup/@sap:label}" tooltip="{/#CashDisPositionTableView/BankAccountGroup/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{parts:[{path:'BankAccountGroup'}], formatter:'fin.cash.cashposition.analyze.util.Conversions.formatValueWithNotAssign'}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>
+
+    <table:AnalyticalColumn 
+     customData:p13nData='\{"columnKey": "BankGroup"}' leadingProperty="BankGroup"  sortProperty="BankGroup" 
+     width="20px" visible="false">
+     <Label text="{/#CashDisPositionTableView/BankGroup/@sap:label}" tooltip="{/#CashDisPositionTableView/BankGroup/@sap:label}" width="100%"></Label>
+     <table:template>
+      <Text text="{BankGroup}" wrapping="false" />
+     </table:template>
+    </table:AnalyticalColumn>          
+
+
+    <!-- Extension point "extColumnsForCashDisPositionDeltaView" -->
+    <!-- Customer could define one or more sap.ui.table.Column here -->
+    <core:ExtensionPoint name="extColumnsForCashDisPositionDeltaView" />
+              
+   </table:columns>
+  </table:AnalyticalTable>
+
+ </smartTable:SmartTable>
+
+
+</VBox>
