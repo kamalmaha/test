@@ -22,6 +22,7 @@ sap.ui.controller("fin.cash.cashposition.analyze.FIN_ANALYZEPOSIExtension.view.S
 	oCurrTable: null,
 	bIsInitizedCall: false,
 	onInit: function() {
+		var test = '1';
 		var t = this;
 		this.util = fin.cash.cashposition.analyze.util.Conversions;
 		this.oResoureModel = this.oApplicationFacade.getResourceBundle();
